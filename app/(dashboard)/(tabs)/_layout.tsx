@@ -34,20 +34,7 @@ export default function TabsLayout(): JSX.Element {
             <Tabs.Screen
                 name="dashboard"
                 options={{
-                    headerShown: true,
-                    header: () => {
-                        return <ThemedHeader title="Dashboard" showTitle={true} />;
-                    },
-                    title: "Dashboard",
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <Iconify
-                                icon="solar:home-angle-outline"
-                                size={25}
-                                color={focused ? "#3b82f6" : colors.icon}
-                            />
-                        );
-                    },
+                    headerShown: false
                 }}
             />
             <Tabs.Screen
