@@ -1,0 +1,36 @@
+{
+    "colors": {
+        "light": {
+            "tabIcon": "#888",
+            "icon": "#333",
+            "drawer": "#fff",
+            "background": "#fafafa",
+            "primary": "#4467C4",
+            "secondary": "#999",
+            "theme": "#fff",
+            "themeMild": "#f3f4f6",
+            "border": "#e5e5e5",
+            "likeButton": "#fff",
+            "text": "#333",
+            "inverted": "#000"
+        },
+        "dark": {
+            "tabIcon": "#aaa",
+            "icon": "#fff",
+            "drawer": "#222",
+            "background": "#111",
+            "primary": "#5e72e4",
+            "secondary": "#555",
+            "theme": "#111",
+            "border": "#404040",
+            "themeMild": "#111",
+            "likeButton": "#f2f2f2",
+            "text": "#fff",
+            "inverted": "#fff"
+        }
+    },
+    "app": {
+        "name": "SafeSend",
+        "version": "1.0.0"
+    }
+}
