@@ -6,6 +6,7 @@ export interface HeaderProps {
     showTitle?: boolean;
     rightIcon?: JSX.Element | null;
     leftIcon?: JSX.Element | null;
+    backgroundColor?: string;
 }
 
 export function ThemedHeader({
@@ -13,6 +14,7 @@ export function ThemedHeader({
     title,
     rightIcon,
     leftIcon,
+    backgroundColor = "bg-theme",
 }: HeaderProps): JSX.Element {
     const colors = useColors();
     return (
@@ -26,9 +28,9 @@ export function ThemedHeader({
                 backgroundColor={colors.theme}
             />
             <View
-                className={`relative justify-between flex-row items-center px-4 pb-2 bg-theme ${
+                className={`relative justify-between flex-row items-center px-4 pb-2 ${
                     Platform.OS === "ios" ? "pt-16 min-h-20 pb-3" : "h-20 pt-2"
-                }`}
+                } ${backgroundColor}`}
             >
                 {leftIcon && leftIcon}
 

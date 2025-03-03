@@ -38,6 +38,7 @@ export default function TabsLayout(): JSX.Element {
                     header: () => {
                         return (
                             <ThemedHeader
+                                backgroundColor="bg-theme-mild"
                                 title="Welcome Back"
                                 rightIcon={
                                     <Image
