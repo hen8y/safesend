@@ -3,7 +3,7 @@ import { useColors } from "@/zich/hooks";
 import { PlatformPressable } from "@react-navigation/elements";
 import { Tabs } from "expo-router";
 import { colorScheme } from "nativewind";
-import { Platform } from "react-native";
+import { Image, Platform } from "react-native";
 import { Iconify } from "react-native-iconify";
 
 export default function TabsLayout(): JSX.Element {
@@ -32,9 +32,33 @@ export default function TabsLayout(): JSX.Element {
             }}
         >
             <Tabs.Screen
-                name="dashboard"
+                name="home"
                 options={{
-                    headerShown: false
+                    headerShown: true,
+                    header: () => {
+                        return (
+                            <ThemedHeader
+                                title="Welcome Back"
+                                rightIcon={
+                                    <Image
+                                        source={require("@/assets/images/avatars/1.png")}
+                                        className="w-10 h-10 rounded-full"
+                                    />
+                                }
+                            />
+                        );
+                    },
+
+                    title: "Home",
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <Iconify
+                                icon="solar:home-angle-outline"
+                                size={25}
+                                color={focused ? "#3b82f6" : colors.icon}
+                            />
+                        );
+                    },
                 }}
             />
             <Tabs.Screen
@@ -42,7 +66,12 @@ export default function TabsLayout(): JSX.Element {
                 options={{
                     headerShown: true,
                     header: () => {
-                        return <ThemedHeader title="Loan Creation" showTitle={true} />;
+                        return (
+                            <ThemedHeader
+                                title="Loan Creation"
+                                showTitle={true}
+                            />
+                        );
                     },
                     title: "Loan Creation",
                     tabBarIcon: ({ focused }) => {
@@ -61,7 +90,12 @@ export default function TabsLayout(): JSX.Element {
                 options={{
                     headerShown: true,
                     header: () => {
-                        return <ThemedHeader title="Notifications" showTitle={true} />;
+                        return (
+                            <ThemedHeader
+                                title="Notifications"
+                                showTitle={true}
+                            />
+                        );
                     },
                     title: "Notifications",
                     tabBarIcon: ({ focused }) => {

@@ -34,7 +34,7 @@ export default function Login(): JSX.Element {
     };
 
     const handleLogin = async () => {
-        router.replace("/dashboard");
+        router.replace("/home");
     };
 
     return (
