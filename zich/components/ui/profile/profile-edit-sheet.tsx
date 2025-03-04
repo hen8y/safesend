@@ -1,5 +1,5 @@
-import { ProfileFormType } from "@/app/(dashboard)/(tabs)/profile";
-import { useColors, useKeyboard } from "@/zich/hooks";
+import { ProfileFormType } from "@/app/(dashboard)/(tabs)/settings";
+import { useColors } from "@/zich/hooks";
 import {
     Dispatch,
     RefObject,
@@ -7,7 +7,7 @@ import {
     useEffect,
     useState,
 } from "react";
-import { Platform, View } from "react-native";
+import { View } from "react-native";
 import ActionSheet, { ActionSheetRef } from "react-native-actions-sheet";
 
 import { ZichTextInput } from "../../inputs";
@@ -29,7 +29,6 @@ export default function ProfileEditSheet({
 }: ProfileTabProps): JSX.Element {
     const colors = useColors();
     const [form, setForm] = useState<ProfileFormType>(profileForm);
-    const isKeyboardVisible = useKeyboard();
 
     useEffect(() => {
         setForm(profileForm);
@@ -61,9 +60,11 @@ export default function ProfileEditSheet({
     return (
         <ActionSheet
             containerStyle={{
-                height: isKeyboardVisible ? "91%" : "94%",
+                height: "80%",
                 backgroundColor: colors.background,
-                paddingBottom: Platform.OS === "ios" ? 20 : 0,
+                paddingBottom: 20,
+                borderTopLeftRadius: 40,
+                borderTopRightRadius: 40,
             }}
             ref={actionSheetRef}
             closable
@@ -77,7 +78,7 @@ export default function ProfileEditSheet({
 
             <FormThemedView>
                 <View className="p-5 mt-5">
-                    <View className="w-full rounded-xl border-theme bg-white dark:bg-neutral-800 p-4">
+                    <View className="w-full rounded-2xl border-theme bg-white dark:bg-neutral-800 p-4">
                         <View className="flex-row w-full gap-x-5 space">
                             <ZichTextInput
                                 onChangeText={(e) =>

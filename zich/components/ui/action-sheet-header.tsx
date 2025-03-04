@@ -14,7 +14,7 @@ export default function ActionSheetHeader({
     onComplete,
 }: ActionSheetHeaderProps): JSX.Element {
     return (
-        <View className="flex-row space p-4 rounded-t-lg bg-overlay border-b border-theme">
+        <View className="flex-row space p-4 h-14 rounded-t-3xl border-b bg-overlay border-theme">
             <Pressable onPress={onCancel}>
                 <ThemedText content="Cancel" />
             </Pressable>

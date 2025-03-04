@@ -1,15 +1,16 @@
-import { ThemedText } from "../../theme/themed-text";
-import Card from "../card";
-import HR from "../hr";
-import ProfileEditSheet from "./profile-edit-sheet";
-import ProfileTab from "./profile-tab";
-import { ProfileFormType } from "@/app/(dashboard)/(tabs)/profile";
+import { ProfileFormType } from "@/app/(dashboard)/(tabs)/settings";
 import { useColors } from "@/zich/hooks";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
 import { Alert, Image, TouchableOpacity, View, ViewProps } from "react-native";
 import { ActionSheetRef } from "react-native-actions-sheet";
 import { Iconify } from "react-native-iconify";
+
+import { ThemedText } from "../../theme/themed-text";
+import Card from "../card";
+import HR from "../hr";
+import ProfileEditSheet from "./profile-edit-sheet";
+import ProfileTab from "./profile-tab";
 
 export default function ProfileContainer({ ...props }: ViewProps) {
     const colors = useColors();
@@ -62,7 +63,7 @@ export default function ProfileContainer({ ...props }: ViewProps) {
     };
     return (
         <>
-            <Card className="h-28 mt-7">
+            <Card className="h-28">
                 <View className="flex-row space">
                     <View className="flex-row gap-2 items-center">
                         <Image

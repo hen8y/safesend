@@ -54,8 +54,8 @@ export default function TabsLayout(): JSX.Element {
                     tabBarIcon: ({ focused }) => {
                         return (
                             <Iconify
-                                icon="solar:home-angle-outline"
-                                size={25}
+                                icon="lets-icons:home-duotone"
+                                size={30}
                                 color={focused ? "#3b82f6" : colors.icon}
                             />
                         );
@@ -63,66 +63,18 @@ export default function TabsLayout(): JSX.Element {
                 }}
             />
             <Tabs.Screen
-                name="loan-creation"
+                name="settings"
                 options={{
                     headerShown: true,
                     header: () => {
-                        return (
-                            <ThemedHeader
-                                title="Loan Creation"
-                                showTitle={true}
-                            />
-                        );
+                        return <ThemedHeader title="Settings" showTitle />;
                     },
-                    title: "Loan Creation",
+                    title: "Settings",
                     tabBarIcon: ({ focused }) => {
                         return (
                             <Iconify
-                                icon="solar:home-angle-outline"
-                                size={25}
-                                color={focused ? "#3b82f6" : colors.icon}
-                            />
-                        );
-                    },
-                }}
-            />
-            <Tabs.Screen
-                name="notifications"
-                options={{
-                    headerShown: true,
-                    header: () => {
-                        return (
-                            <ThemedHeader
-                                title="Notifications"
-                                showTitle={true}
-                            />
-                        );
-                    },
-                    title: "Notifications",
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <Iconify
-                                icon="solar:home-angle-outline"
-                                size={25}
-                                color={focused ? "#3b82f6" : colors.icon}
-                            />
-                        );
-                    },
-                }}
-            />
-            <Tabs.Screen
-                name="profile"
-                options={{
-                    headerShown: true,
-                    header: () => {
-                        return <ThemedHeader title="Profile" showTitle />;
-                    },
-                    title: "Profile",
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <Iconify
-                                icon="solar:user-outline"
-                                size={25}
+                                icon="duo-icons:settings"
+                                size={30}
                                 color={focused ? "#3b82f6" : colors.icon}
                             />
                         );

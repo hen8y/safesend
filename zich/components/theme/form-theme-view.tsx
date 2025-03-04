@@ -6,6 +6,7 @@ import {
     View,
     ViewProps,
 } from "react-native";
+
 type FormThemedViewProps = ViewProps & {
     className?: string;
 };
