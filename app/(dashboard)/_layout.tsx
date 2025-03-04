@@ -16,6 +16,13 @@ export default function NavigationLayout(): JSX.Element {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="modals"
+                options={{
+                    presentation: "modal",
+                    headerShown: false,
+                }}
+            />
         </Stack>
     );
 }

@@ -11,8 +11,7 @@ export default function PagesLayout(): JSX.Element {
                 name="notifications"
                 options={{
                     title: "Notifications",
-                    headerLeft: () => <BackHeader />,
-                    headerShadowVisible: false,
+                    headerShadowVisible: true,
                 }}
             />
             <Stack.Screen

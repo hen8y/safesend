@@ -1,9 +1,9 @@
 import { ThemedHeader } from "@/zich/components/theme";
 import { useColors } from "@/zich/hooks";
 import { PlatformPressable } from "@react-navigation/elements";
-import { Tabs } from "expo-router";
+import { router, Tabs } from "expo-router";
 import { colorScheme } from "nativewind";
-import { Image, Platform } from "react-native";
+import { View, Platform, Pressable } from "react-native";
 import { Iconify } from "react-native-iconify";
 
 export default function TabsLayout(): JSX.Element {
@@ -41,10 +41,18 @@ export default function TabsLayout(): JSX.Element {
                                 backgroundColor="bg-theme-mild"
                                 title="Welcome Back"
                                 rightIcon={
-                                    <Image
-                                        source={require("@/assets/images/avatars/1.png")}
-                                        className="w-10 h-10 rounded-full"
-                                    />
+                                    <Pressable
+                                        className="rounded-full center size-9 border border-gray-200 bg-white"
+                                        onPress={() => {
+                                            router.push("/notifications");
+                                        }}
+                                    >
+                                        <Iconify
+                                            icon="lucide:bell"
+                                            size={20}
+                                            color={colors.icon}
+                                        />
+                                    </Pressable>
                                 }
                             />
                         );

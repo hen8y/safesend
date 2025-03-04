@@ -35,8 +35,8 @@ export default function ZichTextInput({
     const borderClass = error
         ? "border-danger focus:border-primary/50"
         : borderBottom
-        ? "border-b-theme focus:border-primary/50"
-        : "border-theme focus:border-primary/50";
+            ? "border-b-theme focus:border-primary/50"
+            : "border-theme focus:border-primary/50";
 
     return (
         <View className={`w-full ${containerClassName}`}>
@@ -56,7 +56,6 @@ export default function ZichTextInput({
                 `}
                 autoFocus={autoFocus}
                 inputMode={inputMode}
-                keyboardAppearance={isDark ? "dark" : "light"}
                 returnKeyType="done"
                 onSubmitEditing={onDone}
             />

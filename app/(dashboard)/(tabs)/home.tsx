@@ -2,6 +2,7 @@ import { LoanComparison } from "@/components/home/loan-comparison";
 import CreateLoanSheet from "@/components/sheets/create-loan";
 import { ThemedText, ThemedView } from "@/zich/components/theme";
 import { ZichButton } from "@/zich/components/ui";
+import { router } from "expo-router";
 import { useRef } from "react";
 import { ScrollView, View } from "react-native";
 import { ActionSheetRef } from "react-native-actions-sheet";
@@ -42,7 +43,7 @@ const HomeScreen = () => {
                                 className="flex-1"
                                 textClassName="text-white"
                                 onPress={() =>
-                                    createLoanSheetRef.current?.show()
+                                    router.push("/modals/create-loan")
                                 }
                             />
                             <ZichButton
