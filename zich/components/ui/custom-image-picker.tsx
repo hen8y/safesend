@@ -1,4 +1,4 @@
-import { ProfileFormType } from "@/app/(dashboard)/(tabs)/account";
+import { ProfileFormProps } from "@/utils/interfaces";
 import * as ImagePicker from "expo-image-picker";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Alert, Image, TouchableOpacity, View } from "react-native";
@@ -8,7 +8,7 @@ export default function CustomImagePicker({
     onUpdate,
 }: {
     defaultImage: any;
-    onUpdate: Dispatch<SetStateAction<ProfileFormType>>;
+    onUpdate: Dispatch<SetStateAction<ProfileFormProps>>;
 }): JSX.Element {
     const [image, setImage] = useState<string>(defaultImage);
 

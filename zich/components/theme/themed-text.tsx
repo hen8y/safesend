@@ -1,10 +1,5 @@
-import { Text, TextProps } from "react-native";
-
-type ThemedTextProps = TextProps & {
-    className?: string;
-    color?: string;
-    content?: string | null | number;
-};
+import { ThemedTextProps } from "@/utils/interfaces";
+import { Text } from "react-native";
 
 export function ThemedText({
     className,
@@ -20,9 +15,8 @@ export function ThemedText({
 
     return (
         <Text
-            className={` ${className}  ${
-                hasTextSize ? hasTextSize : "text-lg"
-            } ${color ? color : "text-theme"}`}
+            className={` ${className}  ${hasTextSize ? hasTextSize : "text-lg"
+                } ${color ? color : "text-theme"}`}
             {...(content ? { children: content } : props)}
         />
     );

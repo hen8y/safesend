@@ -1,14 +1,8 @@
-import { ProfileFormType } from "@/app/(dashboard)/(tabs)/settings";
+import { ProfileEditSheetProps, ProfileFormProps } from "@/utils/interfaces";
 import { useColors } from "@/zich/hooks";
-import {
-    Dispatch,
-    RefObject,
-    SetStateAction,
-    useEffect,
-    useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
-import ActionSheet, { ActionSheetRef } from "react-native-actions-sheet";
+import ActionSheet from "react-native-actions-sheet";
 
 import { ZichTextInput } from "../../inputs";
 import { FormThemedView } from "../../theme/form-theme-view";
@@ -16,19 +10,13 @@ import { ThemedText } from "../../theme/themed-text";
 import ActionSheetHeader from "../action-sheet-header";
 import CustomImagePicker from "../custom-image-picker";
 
-interface ProfileTabProps {
-    actionSheetRef: RefObject<ActionSheetRef>;
-    profileForm: ProfileFormType;
-    setProfileForm: Dispatch<SetStateAction<ProfileFormType>>;
-}
-
 export default function ProfileEditSheet({
     actionSheetRef,
     profileForm,
     setProfileForm,
-}: ProfileTabProps): JSX.Element {
+}: ProfileEditSheetProps): JSX.Element {
     const colors = useColors();
-    const [form, setForm] = useState<ProfileFormType>(profileForm);
+    const [form, setForm] = useState<ProfileFormProps>(profileForm);
 
     useEffect(() => {
         setForm(profileForm);

@@ -1,13 +1,7 @@
+import { NotificationTabProps } from "@/utils/interfaces";
 import { Pressable, Text, View } from "react-native";
-import { ThemedText } from "../theme";
 
-interface NotificationTabProps {
-    title: string;
-    time: string;
-    message: string;
-    isRead?: boolean;
-    onPress?: () => void;
-}
+import { ThemedText } from "../theme";
 
 export default function NotificationTab({
     title,
@@ -18,9 +12,8 @@ export default function NotificationTab({
 }: NotificationTabProps): JSX.Element {
     return (
         <View
-            className={`w-full flex-row gap-x-3 border-b border-neutral-300 dark:border-neutral-700 p-3 ${
-                !isRead && "bg-blue-600/10"
-            }`}
+            className={`w-full flex-row gap-x-3 border-b border-neutral-300 dark:border-neutral-700 p-3 ${!isRead && "bg-blue-600/10"
+                }`}
         >
             {!isRead && (
                 <Text className="text-red-500 text-sm dark:text-red-600/90">

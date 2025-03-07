@@ -1,14 +1,9 @@
+import { OTPInputProps } from "@/utils/interfaces";
 import * as Clipboard from "expo-clipboard";
 import { useRef, useState } from "react";
 import { Keyboard, Pressable, TextInput, View } from "react-native";
 
 import { ThemedText } from "../theme";
-
-interface OTPInputProps {
-    length?: number;
-    error: string;
-    onComplete?: (otp: string) => void;
-}
 
 export default function OTPInput({
     length = 4,
@@ -60,8 +55,8 @@ export default function OTPInput({
         return focusedIndex === index
             ? "border-primary"
             : error && !digit
-            ? "border-danger"
-            : "border-secondary dark:border-neutral-700";
+                ? "border-danger"
+                : "border-secondary dark:border-neutral-700";
     };
     return (
         <View>

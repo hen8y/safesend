@@ -1,16 +1,20 @@
+import { VerificationFormProps } from "@/utils/interfaces";
 import { useKeyboard } from "@/zich/hooks";
-import { SafeAreaView, StatusBar, TouchableOpacity, View } from "react-native";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { SafeAreaView, TouchableOpacity, View } from "react-native";
+import * as z from "zod";
 
 import ApplicationLogo from "../application-logo";
 import { OTPInput } from "../inputs";
 import { ThemedText } from "../theme";
 import { ZichButton } from "../ui";
 
-interface VerificationFormProps {
-    handleVerificationForm: () => void;
-    handleGoBack: () => void;
-    isLoading: boolean;
-}
+const verificationFormSchema = z.object({
+    otp: z.string().length(4, "Please enter a valid verification code")
+});
+
+type VerificationFormSchema = z.infer<typeof verificationFormSchema>;
 
 export default function VerificationForm({
     handleVerificationForm,
@@ -18,6 +22,18 @@ export default function VerificationForm({
     isLoading,
 }: VerificationFormProps): JSX.Element {
     const isKeyboardVisible = useKeyboard();
+
+    const { handleSubmit, setValue, formState: { errors } } = useForm<VerificationFormSchema>({
+        resolver: zodResolver(verificationFormSchema),
+        defaultValues: {
+            otp: ""
+        }
+    });
+
+    const onSubmit = (data: VerificationFormSchema) => {
+        handleVerificationForm();
+    };
+
     return (
         <SafeAreaView className="flex-1">
             <View className="p-5 w-full flex-1">
@@ -48,11 +64,13 @@ export default function VerificationForm({
                     content="We sent a code to your email"
                     className="text-neutral-400 mt-2"
                 />
-                <OTPInput error="" onComplete={
-                    (otp) => {
-                        console.log(otp);
-                    }
-                } />
+                <OTPInput
+                    error={errors.otp?.message || ""}
+                    onComplete={(otp) => {
+                        setValue("otp", otp);
+                        handleSubmit(onSubmit)();
+                    }}
+                />
                 <View className="flex-row gap-x-1 mt-5">
                     <ThemedText content="Didn't get the code?" />
                     <TouchableOpacity>
@@ -74,7 +92,7 @@ export default function VerificationForm({
                         className="p-4 flex-1 max-w-32"
                     />
                     <ZichButton
-                        onPress={handleVerificationForm}
+                        onPress={handleSubmit(onSubmit)}
                         content="Proceed"
                         textClassName="text-white"
                         isLoading={isLoading}

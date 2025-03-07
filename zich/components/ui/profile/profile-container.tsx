@@ -1,4 +1,4 @@
-import { ProfileFormType } from "@/app/(dashboard)/(tabs)/settings";
+import { ProfileFormProps } from "@/utils/interfaces";
 import { useColors } from "@/zich/hooks";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
@@ -15,7 +15,7 @@ import ProfileTab from "./profile-tab";
 export default function ProfileContainer({ ...props }: ViewProps) {
     const colors = useColors();
     const actionSheetRef = useRef<ActionSheetRef>(null);
-    const [profileForm, setProfileForm] = useState<ProfileFormType>({
+    const [profileForm, setProfileForm] = useState<ProfileFormProps>({
         username: "John Doe",
         email: "john.doe@example.com",
         avi: require("@/assets/images/avatars/2.png"),

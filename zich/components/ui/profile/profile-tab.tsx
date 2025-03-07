@@ -1,19 +1,10 @@
+import { ProfileTabProps } from "@/utils/interfaces";
 import { useColors } from "@/zich/hooks";
 import { router } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 import { Iconify } from "react-native-iconify";
 
 import { ToggleInput } from "../../inputs";
-
-interface ProfileTabProps {
-    name: string;
-    details?: any;
-    icon: JSX.Element;
-    type: "link" | "action" | "toggle" | "";
-    action?: () => void;
-    trueWhen?: boolean;
-    textClassName?: string;
-}
 
 export default function ProfileTab({
     name,

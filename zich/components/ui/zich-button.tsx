@@ -1,16 +1,6 @@
+import { ZichButtonProps } from "@/utils/interfaces";
 import { TouchableOpacity, useColorScheme } from "react-native";
 import { Text } from "react-native";
-
-export interface ZichButtonProps {
-    content: string;
-    isLoading?: boolean;
-    onPress: () => void;
-    className?: string;
-    roundedFull?: boolean;
-    theme?: string;
-    textClassName?: string;
-    customPadding?: string;
-}
 
 export default function ZichButton({
     content,
@@ -42,9 +32,8 @@ export default function ZichButton({
             disabled={isLoading}
         >
             <Text
-                className={`${
-                    isLoading ? "text-neutral-700" : textClassName
-                } font-semibold text-lg`}
+                className={`${isLoading ? "text-neutral-700" : textClassName
+                    } font-semibold text-lg`}
             >
                 {content}
             </Text>

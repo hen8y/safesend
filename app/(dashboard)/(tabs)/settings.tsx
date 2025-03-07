@@ -3,12 +3,6 @@ import { Card, ProfileContainer, ProfileTab } from "@/zich/components/ui";
 import { useColors } from "@/zich/hooks";
 import { Iconify } from "react-native-iconify";
 
-export type ProfileFormType = {
-    username: string;
-    email: string;
-    avi: any;
-};
-
 export default function Profile() {
     const colors = useColors();
 

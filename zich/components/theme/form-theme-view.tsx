@@ -1,15 +1,5 @@
-import {
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    TouchableWithoutFeedback,
-    View,
-    ViewProps,
-} from "react-native";
-
-type FormThemedViewProps = ViewProps & {
-    className?: string;
-};
+import { FormThemedViewProps } from "@/utils/interfaces";
+import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, View } from "react-native";
 
 export function FormThemedView({
     className,

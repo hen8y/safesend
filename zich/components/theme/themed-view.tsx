@@ -1,14 +1,6 @@
-import { Dispatch, SetStateAction } from "react";
-import { ScrollView, View, ViewProps } from "react-native";
+import { ThemedViewProps } from "@/utils/interfaces";
+import { ScrollView, View } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
-
-type ThemedViewProps = ViewProps & {
-    className?: string;
-    isLoading?: boolean;
-    setIsLoading?: Dispatch<SetStateAction<boolean>>;
-    theme?: "mild" | "normal";
-    scrollEnabled?: boolean;
-};
 
 export function ThemedView({
     className,
@@ -27,9 +19,8 @@ export function ThemedView({
             />
             <ScrollView
                 scrollEnabled={scrollEnabled}
-                className={`${
-                    theme === "mild" ? "container-mild" : "container"
-                } ${className}`}
+                className={`${theme === "mild" ? "container-mild" : "container"
+                    } ${className}`}
                 {...props}
             />
         </View>

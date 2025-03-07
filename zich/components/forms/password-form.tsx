@@ -1,20 +1,30 @@
-import { RegisterFormType } from "@/app/(auth)/register";
+import { PasswordFormProps, RegisterFormProps } from "@/utils/interfaces";
 import { useKeyboard } from "@/zich/hooks";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
-import { Dispatch, SetStateAction, useState } from "react";
-import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
+import { Dispatch, SetStateAction } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { SafeAreaView, TouchableOpacity, View } from "react-native";
+import * as z from "zod";
 
 import ApplicationLogo from "../application-logo";
 import { PasswordInput } from "../inputs";
 import { ThemedText } from "../theme";
 import { ZichButton } from "../ui";
 
-interface PasswordFormProps {
-    onComplete: () => void;
-    isLoading: boolean;
-    form: RegisterFormType;
-    setForm: Dispatch<SetStateAction<RegisterFormType>>;
-}
+const passwordFormSchema = z.object({
+    password: z.string()
+        .min(8, "Password must be at least 8 characters")
+        .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .regex(/[0-9]/, "Password must contain at least one number")
+        .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
+    confirmPassword: z.string()
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"]
+});
+
+type PasswordFormSchema = z.infer<typeof passwordFormSchema>;
 
 export default function PasswordForm({
     onComplete,
@@ -23,13 +33,22 @@ export default function PasswordForm({
     setForm,
 }: PasswordFormProps): JSX.Element {
     const isKeyboardVisible = useKeyboard();
-    const [formError, setFormError] = useState<{
-        password: string;
-        confirmPassword: string;
-    }>({
-        password: "",
-        confirmPassword: "",
+
+    const { control, handleSubmit, formState: { errors } } = useForm<PasswordFormSchema>({
+        resolver: zodResolver(passwordFormSchema),
+        defaultValues: {
+            password: form.password,
+            confirmPassword: form.confirmPassword
+        }
     });
+
+    const onSubmit = (data: PasswordFormSchema) => {
+        setForm((prev: RegisterFormProps) => ({
+            ...prev,
+            ...data
+        }));
+        onComplete();
+    };
 
     return (
         <SafeAreaView className="flex-1">
@@ -62,33 +81,43 @@ export default function PasswordForm({
                     className="sub-title mt-2"
                 />
 
-                <PasswordInput
-                    onChangeText={(e) => setForm({ ...form, password: e })}
-                    label="Password"
-                    containerClassName="mt-5"
-                    placeholder="Enter your password"
-                    autoFocus
-                    value={form.password}
-                    error={formError.password}
+                <Controller
+                    control={control}
+                    name="password"
+                    render={({ field: { onChange, value } }: { field: { onChange: (value: string) => void; value: string } }) => (
+                        <PasswordInput
+                            onChangeText={onChange}
+                            label="Password"
+                            containerClassName="mt-5"
+                            placeholder="Enter your password"
+                            autoFocus
+                            value={value}
+                            error={errors.password?.message}
+                        />
+                    )}
                 />
 
-                <PasswordInput
-                    onChangeText={(e) =>
-                        setForm({ ...form, confirmPassword: e })
-                    }
-                    label="Confirm Password"
-                    containerClassName="mt-5"
-                    placeholder="Confirm your password"
-                    value={form.confirmPassword || ""}
-                    error={formError.confirmPassword}
-                    onDone={onComplete}
+                <Controller
+                    control={control}
+                    name="confirmPassword"
+                    render={({ field: { onChange, value } }: { field: { onChange: (value: string) => void; value: string } }) => (
+                        <PasswordInput
+                            onChangeText={onChange}
+                            label="Confirm Password"
+                            containerClassName="mt-5"
+                            placeholder="Confirm your password"
+                            value={value}
+                            error={errors.confirmPassword?.message}
+                            onDone={handleSubmit(onSubmit)}
+                        />
+                    )}
                 />
             </View>
 
             {!isKeyboardVisible ? (
                 <View className="w-full p-5 gap-y-4">
                     <ZichButton
-                        onPress={onComplete}
+                        onPress={handleSubmit(onSubmit)}
                         content="Proceed"
                         textClassName="text-white"
                         isLoading={isLoading}

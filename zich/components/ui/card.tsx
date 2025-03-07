@@ -1,8 +1,6 @@
-import { View, ViewProps } from "react-native";
+import { CardProps } from "@/utils/interfaces";
+import { View } from "react-native";
 
-interface CardProps extends ViewProps {
-    className?: string;
-}
 export default function Card({ className, ...props }: CardProps): JSX.Element {
     return (
         <View

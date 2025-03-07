@@ -1,14 +1,7 @@
+import { ActionSheetHeaderProps } from "@/utils/interfaces";
 import { Pressable, View } from "react-native";
 
 import { ThemedText } from "../theme/themed-text";
-
-interface ActionSheetHeaderProps {
-    title: string;
-    onCancel: () => void;
-    onComplete: () => void;
-    cancelLabel?: string | React.ReactNode;
-    completeLabel?: string | React.ReactNode;
-}
 
 export default function ActionSheetHeader({
     title,

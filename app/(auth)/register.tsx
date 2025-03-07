@@ -1,23 +1,16 @@
+import { RegisterFormProps } from "@/utils/interfaces";
 import { EmailForm, PasswordForm, VerificationForm } from "@/zich/components/forms";
 import { AuthThemedView } from "@/zich/components/theme";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
 import Swiper from "react-native-swiper";
 
-export type RegisterFormType = {
-    email: string;
-    username: string;
-    password: string;
-    confirmPassword?: string;
-    role: "borrower" | "lender";
-};
-
 export default function Register(): JSX.Element {
     const [step, setStep] = useState<number>(1);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const swiperRef = useRef<Swiper>(null);
-    const [form, setForm] = useState<RegisterFormType>({
+    const [form, setForm] = useState<RegisterFormProps>({
         email: "",
         username: "",
         password: "",

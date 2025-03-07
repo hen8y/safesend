@@ -1,16 +1,9 @@
+import { RoundedCheckboxProps } from "@/utils/interfaces";
 import { useEffect, useState } from "react";
 import { Animated, TouchableOpacity, View } from "react-native";
 import { Iconify } from "react-native-iconify";
 
 import { ThemedText } from "../theme/themed-text";
-
-interface RoundedCheckboxProps {
-    checked?: boolean;
-    label?: string;
-    error?: string;
-    onChange?: (checked: boolean) => void;
-    className?: string;
-}
 
 export default function RoundedCheckbox({
     checked: controlledChecked,

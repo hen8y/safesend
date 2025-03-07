@@ -1,18 +1,8 @@
+import { ZichTextInputProps } from "@/utils/interfaces";
 import { TextInput, View } from "react-native";
 import { Iconify } from "react-native-iconify";
 
-interface ZichTextInputProps {
-    label: string;
-    onChangeText: (text: string) => void;
-    value: string;
-    placeholder?: string;
-    containerClassName?: string;
-    borderBottom?: boolean;
-    autoFocus?: boolean;
-}
-
 export default function SearchInput({
-    label,
     value,
     placeholder = "Search",
     onChangeText,

@@ -1,21 +1,7 @@
+import { ZichTextInputProps } from "@/utils/interfaces";
 import { TextInput, useColorScheme, View } from "react-native";
 
 import { ThemedText } from "../theme/themed-text";
-
-export interface ZichTextInputProps {
-    label: string;
-    onChangeText: (text: string) => void;
-    value: string;
-    placeholder?: string;
-    containerClassName?: string;
-    hideLabel?: boolean;
-    inputClassName?: string;
-    borderBottom?: boolean;
-    error?: string | null;
-    autoFocus?: boolean;
-    inputMode?: "text" | "email" | "numeric" | "tel" | "search";
-    onDone?: () => void;
-}
 
 export default function ZichTextInput({
     label,

@@ -1,22 +1,26 @@
-import { RegisterFormType } from "@/app/(auth)/register";
+import { EmailFormProps, RegisterFormProps } from "@/utils/interfaces";
 import { useKeyboard } from "@/zich/hooks";
-import Checkbox from "expo-checkbox";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
-import { Dispatch, SetStateAction, useState } from "react";
-import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
+import { Controller, useForm } from "react-hook-form";
+import { SafeAreaView, TouchableOpacity, View } from "react-native";
 import { Iconify } from "react-native-iconify";
+import * as z from "zod";
 
 import ApplicationLogo from "../application-logo";
 import { RoundedCheckbox, ZichTextInput } from "../inputs";
 import { ThemedText } from "../theme";
 import { ZichButton } from "../ui";
 
-interface EmailFormProps {
-    onComplete: () => void;
-    isLoading: boolean;
-    form: RegisterFormType;
-    setForm: Dispatch<SetStateAction<RegisterFormType>>;
-}
+const emailFormSchema = z.object({
+    username: z.string().min(3, "Username must be at least 3 characters"),
+    email: z.string().email("Please enter a valid email address"),
+    role: z.enum(["borrower", "lender"], { required_error: "Please select a role" })
+});
+
+type EmailFormSchema = z.infer<typeof emailFormSchema>;
+
+
 
 export default function EmailForm({
     onComplete,
@@ -25,15 +29,24 @@ export default function EmailForm({
     setForm,
 }: EmailFormProps): JSX.Element {
     const isKeyboardVisible = useKeyboard();
-    const [formError, setFormError] = useState<{
-        email: string;
-        username: string;
-        role: string;
-    }>({
-        email: "",
-        username: "",
-        role: "",
+
+    const { control, handleSubmit, formState: { errors } } = useForm<EmailFormSchema>({
+        resolver: zodResolver(emailFormSchema),
+        defaultValues: {
+            username: form.username,
+            email: form.email,
+            role: form.role
+        }
     });
+
+    const onSubmit = (data: EmailFormSchema) => {
+        setForm((prev: RegisterFormProps) => ({
+            ...prev,
+            ...data
+        }));
+        onComplete();
+    };
+
     return (
         <SafeAreaView className="flex-1">
             <View className="p-5 w-full flex-1">
@@ -65,80 +78,101 @@ export default function EmailForm({
                         className="sub-title mt-2"
                     />
 
-                    <View className="flex-row gap-x-4 mt-5">
-                        <TouchableOpacity
-                            activeOpacity={0.7}
-                            onPress={() => {
-                                setForm({ ...form, role: "borrower" })
-                            }}
-                            className={`flex-1 border center pt-7 
-                                ${form.role === "borrower" ? "border-primary" : "border-neutral-300"} 
-                                rounded-xl p-3`
-                            }>
-                            <RoundedCheckbox
-                                checked={form.role === "borrower"}
-                                className="justify-end absolute right-3 top-3"
-                            />
-                            <Iconify
-                                icon="mdi:user-outline"
-                                size={24}
-                                color="#000"
-                            />
-                            <ThemedText
-                                content="Borrower"
-                                className="text-center font-bold"
-                                color="text-neutral-600 "
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            activeOpacity={0.7}
-                            onPress={() => {
-                                setForm({ ...form, role: "lender" })
-                            }}
-                            className={`flex-1 border center pt-7 
-                                ${form.role === "lender" ? "border-primary" : "border-neutral-300"} 
-                                rounded-xl p-3`
-                            }>
-                            <RoundedCheckbox
-                                checked={form.role === "lender"}
-                                className="justify-end absolute right-3 top-3"
-                            />
-                            <Iconify
-                                icon="mdi:user-outline"
-                                size={24}
-                                color="#000"
-                            />
-                            <ThemedText
-                                content="Lender"
-                                className="text-center font-bold"
-                            />
-                        </TouchableOpacity>
-                    </View>
+                    <Controller
+                        control={control}
+                        name="role"
+                        render={({ field: { onChange, value } }: { field: { onChange: (value: "borrower" | "lender") => void; value: "borrower" | "lender" } }) => (
+                            <View className="flex-row gap-x-4 mt-5">
+                                <TouchableOpacity
+                                    activeOpacity={0.7}
+                                    onPress={() => onChange("borrower")}
+                                    className={`flex-1 border center pt-7 
+                                        ${value === "borrower" ? "border-primary" : "border-neutral-300"} 
+                                        rounded-xl p-3`}
+                                >
+                                    <RoundedCheckbox
+                                        checked={value === "borrower"}
+                                        className="justify-end absolute right-3 top-3"
+                                    />
+                                    <Iconify
+                                        icon="mdi:user-outline"
+                                        size={24}
+                                        color="#000"
+                                    />
+                                    <ThemedText
+                                        content="Borrower"
+                                        className="text-center font-bold"
+                                        color="text-neutral-600"
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    activeOpacity={0.7}
+                                    onPress={() => onChange("lender")}
+                                    className={`flex-1 border center pt-7 
+                                        ${value === "lender" ? "border-primary" : "border-neutral-300"} 
+                                        rounded-xl p-3`}
+                                >
+                                    <RoundedCheckbox
+                                        checked={value === "lender"}
+                                        className="justify-end absolute right-3 top-3"
+                                    />
+                                    <Iconify
+                                        icon="mdi:user-outline"
+                                        size={24}
+                                        color="#000"
+                                    />
+                                    <ThemedText
+                                        content="Lender"
+                                        className="text-center font-bold"
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        )}
+                    />
+                    {errors.role && (
+                        <ThemedText
+                            content={errors.role.message}
+                            className="text-danger mt-2"
+                        />
+                    )}
                 </View>
-                <ZichTextInput
-                    onChangeText={(e) => setForm({ ...form, username: e })}
-                    label="Username"
-                    placeholder="Choose username"
-                    value={form.username}
-                    error={formError.username}
+
+                <Controller
+                    control={control}
+                    name="username"
+                    render={({ field: { onChange, value } }: { field: { onChange: (value: string) => void; value: string } }) => (
+                        <ZichTextInput
+                            onChangeText={onChange}
+                            label="Username"
+                            placeholder="Choose username"
+                            value={value}
+                            error={errors.username?.message}
+                        />
+                    )}
                 />
 
-                <ZichTextInput
-                    onChangeText={(e) => setForm({ ...form, email: e })}
-                    label="Email Address"
-                    containerClassName="mt-5"
-                    placeholder="Your email"
-                    value={form.email}
-                    error={formError.email}
-                    inputMode="email"
-                    onDone={onComplete}
+                <Controller
+                    control={control}
+                    name="email"
+                    render={({ field: { onChange, value } }: { field: { onChange: (value: string) => void; value: string } }) => (
+                        <ZichTextInput
+                            onChangeText={onChange}
+                            label="Email Address"
+                            containerClassName="mt-5"
+                            placeholder="Your email"
+                            value={value}
+                            error={errors.email?.message}
+                            inputMode="email"
+                            onDone={handleSubmit(onSubmit)}
+                        />
+                    )}
                 />
             </View>
 
             {!isKeyboardVisible ? (
                 <View className="w-full p-5 gap-y-4 mt-10">
                     <ZichButton
-                        onPress={onComplete}
+                        onPress={handleSubmit(onSubmit)}
                         content="Proceed"
                         isLoading={isLoading}
                         textClassName="text-white"
@@ -159,7 +193,6 @@ export default function EmailForm({
             ) : (
                 <View className="h-60" />
             )}
-
         </SafeAreaView>
     );
 }
