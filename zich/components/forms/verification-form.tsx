@@ -1,4 +1,5 @@
-import { TouchableOpacity, View } from "react-native";
+import { useKeyboard } from "@/zich/hooks";
+import { SafeAreaView, StatusBar, TouchableOpacity, View } from "react-native";
 
 import ApplicationLogo from "../application-logo";
 import { OTPInput } from "../inputs";
@@ -16,9 +17,10 @@ export default function VerificationForm({
     handleGoBack,
     isLoading,
 }: VerificationFormProps): JSX.Element {
+    const isKeyboardVisible = useKeyboard();
     return (
-        <>
-            <View className="px-5 w-full">
+        <SafeAreaView className="flex-1">
+            <View className="p-5 w-full flex-1">
                 <ApplicationLogo />
                 <View className="w-full mt-10 mb-4">
                     <ThemedText
@@ -30,11 +32,10 @@ export default function VerificationForm({
                         {[1, 2, 3].map((i) => (
                             <View
                                 key={i}
-                                className={`h-1 ${
-                                    1 === i
-                                        ? "bg-primary rounded-full"
-                                        : "bg-neutral-300 dark:bg-neutral-700"
-                                } w-12`}
+                                className={`h-1 ${1 === i
+                                    ? "bg-primary rounded-full"
+                                    : "bg-neutral-300 dark:bg-neutral-700"
+                                    } w-12`}
                             ></View>
                         ))}
                     </View>
@@ -62,26 +63,28 @@ export default function VerificationForm({
                     </TouchableOpacity>
                 </View>
             </View>
-
-            <View className="flex-1 flex-row absolute bottom-32 w-full px-5 gap-x-4">
-                <ZichButton
-                    onPress={handleGoBack}
-                    content="Go back"
-                    textClassName="text-primary"
-                    theme="bg-secondary border border-neutral-300"
-                    roundedFull
-                    className="p-4 flex-1 max-w-32"
-                
-                />
-                <ZichButton
-                    onPress={handleVerificationForm}
-                    content="Proceed"
-                    textClassName="text-white"
-                    isLoading={isLoading}
-                    roundedFull
-                    className="p-4 flex-1"
-                />
-            </View>
-        </>
+            {!isKeyboardVisible ? (
+                <View className="p-5 pb-8 flex-row gap-x-4">
+                    <ZichButton
+                        onPress={handleGoBack}
+                        content="Go back"
+                        textClassName="text-primary"
+                        theme="bg-secondary border border-neutral-300"
+                        roundedFull
+                        className="p-4 flex-1 max-w-32"
+                    />
+                    <ZichButton
+                        onPress={handleVerificationForm}
+                        content="Proceed"
+                        textClassName="text-white"
+                        isLoading={isLoading}
+                        roundedFull
+                        className="p-4 flex-1"
+                    />
+                </View>
+            ) : (
+                <View className="h-60" />
+            )}
+        </SafeAreaView>
     );
 }

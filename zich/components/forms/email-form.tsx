@@ -1,8 +1,10 @@
 import { RegisterFormType } from "@/app/(auth)/register";
 import { useKeyboard } from "@/zich/hooks";
+import Checkbox from "expo-checkbox";
 import { router } from "expo-router";
 import { Dispatch, SetStateAction, useState } from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
+import { Iconify } from "react-native-iconify";
 
 import ApplicationLogo from "../application-logo";
 import { RoundedCheckbox, ZichTextInput } from "../inputs";
@@ -23,22 +25,18 @@ export default function EmailForm({
     setForm,
 }: EmailFormProps): JSX.Element {
     const isKeyboardVisible = useKeyboard();
-    const [termsIsChecked, setTermsIsChecked] = useState<boolean>(false);
     const [formError, setFormError] = useState<{
         email: string;
         username: string;
-        checkbox: string;
+        role: string;
     }>({
         email: "",
         username: "",
-        checkbox: "",
+        role: "",
     });
     return (
-        <>
-            <ScrollView
-                contentContainerClassName="flex-grow"
-                className="px-5 w-full"
-            >
+        <SafeAreaView className="flex-1">
+            <View className="p-5 w-full flex-1">
                 <ApplicationLogo />
                 <View className="w-full mt-10 mb-4">
                     <ThemedText
@@ -50,20 +48,77 @@ export default function EmailForm({
                         {[1, 2, 3].map((i) => (
                             <View
                                 key={i}
-                                className={`h-1 ${
-                                    1 === i
-                                        ? "bg-primary rounded-full"
-                                        : "bg-neutral-300 dark:bg-neutral-700"
-                                } w-12`}
+                                className={`h-1 ${1 === i
+                                    ? "bg-primary rounded-full"
+                                    : "bg-neutral-300 dark:bg-neutral-700"
+                                    } w-12`}
                             ></View>
                         ))}
+                    </View>
+
+                    <ThemedText
+                        content="Borrower Or Lender?"
+                        className="font-bold text-2xl mt-4"
+                    />
+                    <ThemedText
+                        content="Choose your role to continue"
+                        className="sub-title mt-2"
+                    />
+
+                    <View className="flex-row gap-x-4 mt-5">
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            onPress={() => {
+                                setForm({ ...form, role: "borrower" })
+                            }}
+                            className={`flex-1 border center pt-7 
+                                ${form.role === "borrower" ? "border-primary" : "border-neutral-300"} 
+                                rounded-xl p-3`
+                            }>
+                            <RoundedCheckbox
+                                checked={form.role === "borrower"}
+                                className="justify-end absolute right-3 top-3"
+                            />
+                            <Iconify
+                                icon="mdi:user-outline"
+                                size={24}
+                                color="#000"
+                            />
+                            <ThemedText
+                                content="Borrower"
+                                className="text-center font-bold"
+                                color="text-neutral-600 "
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            onPress={() => {
+                                setForm({ ...form, role: "lender" })
+                            }}
+                            className={`flex-1 border center pt-7 
+                                ${form.role === "lender" ? "border-primary" : "border-neutral-300"} 
+                                rounded-xl p-3`
+                            }>
+                            <RoundedCheckbox
+                                checked={form.role === "lender"}
+                                className="justify-end absolute right-3 top-3"
+                            />
+                            <Iconify
+                                icon="mdi:user-outline"
+                                size={24}
+                                color="#000"
+                            />
+                            <ThemedText
+                                content="Lender"
+                                className="text-center font-bold"
+                            />
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <ZichTextInput
                     onChangeText={(e) => setForm({ ...form, username: e })}
                     label="Username"
                     placeholder="Choose username"
-                    autoFocus
                     value={form.username}
                     error={formError.username}
                 />
@@ -78,21 +133,10 @@ export default function EmailForm({
                     inputMode="email"
                     onDone={onComplete}
                 />
-            </ScrollView>
+            </View>
 
             {!isKeyboardVisible ? (
-                <View className="mb-32 w-full px-5 gap-y-4">
-                    {formError.checkbox && (
-                        <ThemedText
-                            content={formError.checkbox}
-                            className="text-danger text-sm"
-                        />
-                    )}
-                    <RoundedCheckbox
-                        error={formError.checkbox}
-                        onChange={(e) => setTermsIsChecked(e)}
-                        label="I accept the terms and privacy policy"
-                    />
+                <View className="w-full p-5 gap-y-4 mt-10">
                     <ZichButton
                         onPress={onComplete}
                         content="Proceed"
@@ -115,6 +159,7 @@ export default function EmailForm({
             ) : (
                 <View className="h-60" />
             )}
-        </>
+
+        </SafeAreaView>
     );
 }

@@ -9,6 +9,7 @@ export type RegisterFormType = {
     username: string;
     password: string;
     confirmPassword?: string;
+    role: "borrower" | "lender";
 };
 
 export default function Register(): JSX.Element {
@@ -21,17 +22,19 @@ export default function Register(): JSX.Element {
         username: "",
         password: "",
         confirmPassword: "",
+        role: "borrower",
     });
     const handleSignUp = async () => {
         router.replace("/home");
     };
     return (
-        <AuthThemedView isLoading={isLoading} className="items-center pt-20">
+        <AuthThemedView isLoading={isLoading} className="items-center">
             <Swiper
                 ref={swiperRef}
                 loop={false}
                 showsPagination={false}
-                >
+                scrollEnabled={false}
+            >
                 <EmailForm
                     form={form}
                     setForm={setForm}

@@ -1,10 +1,10 @@
 import { ZichTextInput } from "@/zich/components/inputs";
 import { ThemedText, ThemedView } from "@/zich/components/theme";
-import { ActionSheetHeader, ZichButton } from "@/zich/components/ui";
+import { ZichButton } from "@/zich/components/ui";
 import { useColors } from "@/zich/hooks";
 import Slider from "@react-native-community/slider";
 import { RefObject, useEffect, useState } from "react";
-import { Platform, Pressable, ScrollView, Switch, View } from "react-native";
+import { Platform, Switch, View } from "react-native";
 import ActionSheet, { ActionSheetRef } from "react-native-actions-sheet";
 import { Iconify } from "react-native-iconify";
 import Animated, { useAnimatedStyle, useSharedValue, withSequence, withTiming } from "react-native-reanimated";
