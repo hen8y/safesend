@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 
+import ApplicationLogo from "../application-logo";
 import { PasswordInput } from "../inputs";
 import { ThemedText } from "../theme";
 import { ZichButton } from "../ui";
@@ -34,8 +35,28 @@ export default function PasswordForm({
         <>
             <ScrollView
                 contentContainerClassName="flex-grow"
-                className="px-5 w-full mt-10"
+                className="px-5 w-full"
             >
+            <ApplicationLogo />
+            <View className="w-full mt-10 mb-4">
+                <ThemedText
+                    content="Create an Account"
+                    className="text-3xl font-semibold"
+                />
+
+                <View className="flex-row mt-7 gap-2 w-full">
+                    {[1, 2, 3].map((i) => (
+                        <View
+                            key={i}
+                            className={`h-1 ${
+                                1 === i
+                                    ? "bg-primary rounded-full"
+                                    : "bg-neutral-300 dark:bg-neutral-700"
+                            } w-12`}
+                        ></View>
+                    ))}
+                </View>
+            </View>
                 <ThemedText
                     content="Create password"
                     className="font-bold text-2xl"
@@ -69,7 +90,7 @@ export default function PasswordForm({
             </ScrollView>
 
             {!isKeyboardVisible ? (
-                <View className="mb-10 w-full px-5 gap-y-4">
+                <View className="mb-32 w-full px-5 gap-y-4">
                     <ZichButton
                         onPress={onComplete}
                         content="Proceed"

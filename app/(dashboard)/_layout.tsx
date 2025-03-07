@@ -3,7 +3,11 @@ import { Stack } from "expo-router";
 
 export default function NavigationLayout(): JSX.Element {
     return (
-        <Stack>
+        <Stack
+            screenOptions={{
+                animation: "none"
+            }}
+        >
             <Stack.Screen
                 name="(tabs)"
                 options={{ headerShown: false, title: "Home" }}

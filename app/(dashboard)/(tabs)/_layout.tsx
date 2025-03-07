@@ -18,6 +18,7 @@ export default function TabsLayout(): JSX.Element {
                         android_ripple={{ color: "transparent" }}
                     />
                 ),
+                animation: "none",
                 tabBarStyle: {
                     backgroundColor:
                         colorScheme.get() === "dark" ? "#18181b" : "#fff",

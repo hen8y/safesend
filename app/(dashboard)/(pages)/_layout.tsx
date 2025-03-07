@@ -6,7 +6,11 @@ export default function PagesLayout(): JSX.Element {
     const colors = useColors();
 
     return (
-        <Stack>
+        <Stack
+            screenOptions={{
+                animation: "none"
+            }}
+        >
             <Stack.Screen
                 name="notifications"
                 options={{
